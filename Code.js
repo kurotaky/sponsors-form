@@ -2,11 +2,7 @@
 //
 // formからsubmitすると指定したリポジトリにGitHub issueを作ります
 
-const properties = PropertiesService.getScriptProperties()
-
-const GITHUB_ACCESS_TOKEN = properties.getProperty('GITHUB_ACCESS_TOKEN')
-const GITHUB_ENDPOINT = properties.getProperty('GITHUB_ENDPOINT')
-const GITHUB_REPOSITORY_ID = properties.getProperty('GITHUB_REPOSITORY_ID')
+var properties = PropertiesService.getScriptProperties()
 
 function onSubmit(event) {
   var itemResponses = event.response.getItemResponses();
@@ -28,8 +24,12 @@ function onSubmit(event) {
 }
 
 function createGitHubIssue(title, formattedBody) {
+  var token = properties.getProperty('GITHUB_ACCESS_TOKEN')
+  var endpoint = properties.getProperty('GITHUB_ENDPOINT')
+  var repositoryId = properties.getProperty('GITHUB_REPOSITORY_ID')
+
   var mutation = 'mutation {\
-    createIssue(input:{repositoryId:"'+GITHUB_REPOSITORY_ID+'", title:"'+title+'", body:"'+formattedBody+'"}) {\
+    createIssue(input:{repositoryId:"'+repositoryId+'", title:"'+title+'", body:"'+formattedBody+'"}) {\
       issue {\
         title,\
         url\
@@ -41,12 +41,12 @@ function createGitHubIssue(title, formattedBody) {
     'method' : 'post',
     'contentType' : 'application/json',
     'headers' : {
-      'Authorization' : 'Bearer ' + GITHUB_ACCESS_TOKEN,
+      'Authorization' : 'Bearer ' + token,
       'Accept' : 'application/json',
      },
     'payload' : JSON.stringify({query:mutation})
   };
-  var response = UrlFetchApp.fetch(GITHUB_ENDPOINT, options);
+  var response = UrlFetchApp.fetch(endpoint, options);
   var json = JSON.parse(response.getContentText());
 
   Logger.log(json);
