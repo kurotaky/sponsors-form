@@ -1,8 +1,9 @@
-# Issue creation from Google Forms
-for Rails Girls T-Shirts Sponsers
+# Google form for Rails Girls T-Shirts Sponsers
+Tシャツスポンサー用のGoogleフォーム
 
 ## Setup
-
-## Usage
-
-### clasp command
+* please git clone this repository
+* [Install clasp](https://github.com/google/clasp#install)
+* `clasp login`
+* `clasp create --type forms`
+* `clasp push`
