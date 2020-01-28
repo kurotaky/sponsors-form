@@ -1,4 +1,4 @@
-# Google form for Rails Girls T-Shirts Sponsers
+# Google form for Rails Girls T-Shirts Sponsors
 Tシャツスポンサー用のGoogleフォーム
 
 ## Setup
